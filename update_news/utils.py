@@ -74,6 +74,7 @@ def generate_agent(image_path,default_logo_url):
 
     default_logo_response = requests.get(default_logo_url)
     default_logo_response2 = requests.get(default_logo_url)
+    
 
 
     default_logo_img = Image.open(BytesIO(default_logo_response.content))
