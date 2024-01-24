@@ -1,0 +1,10 @@
+{% block content %}
+  <h2>Fill in the Form</h2>
+    <a href="{% url 'pdf_view' %}"></a>
+
+  <form method="post" action="{% url 'generate_pdf' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Generate PDF</button>
+  </form>
+{% endblock %}
