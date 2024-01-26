@@ -7,6 +7,7 @@ class UserImage(models.Model):
 class UserData(models.Model):
     booking_code = models.CharField(max_length=255,blank = True)
     passenger_name = models.CharField(max_length=255,blank = True)
+    passport_num = models.CharField(max_length=255,blank=True)
     travel_date = models.CharField(max_length=255,blank = True)
     desination = models.CharField(max_length=255,blank = True)
     departure_time = models.CharField(max_length=255,blank = True)

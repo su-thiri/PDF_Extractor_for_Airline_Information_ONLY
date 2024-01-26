@@ -57,7 +57,7 @@ class GeneratePDF(View):
 class PDFView(View):
     def get(self, request,pk):
         user_data = UserData.objects.get(id = pk)
-        template_path = 'output_file.html'  # Replace with the actual template path
+        template_path = 'output_file.html'
         date_list =user_data.travel_date.split(',')
         depaturetime_list = user_data.departure_time.split(',')
         arrival_time_list = user_data.arrival_time.split(',')
@@ -65,7 +65,7 @@ class PDFView(View):
         flight_list = user_data.flight.split(',')
         destination_list = user_data.flight.split(',')
 
-        context = {'date': user_data.travel_date,'destination':user_data.desination,'depaturetime':user_data.departure_time,
+        context = {'name':user_data.passenger_name,'pp_num':user_data.passport_num,'date': user_data.travel_date,'destination':user_data.desination,'depaturetime':user_data.departure_time,
                    'arrivaltime':user_data.arrival_time,'flight':user_data.flight,
                    'class':user_data.ar_class,'baggage_allowance':user_data.baggage_allowance,'date_list':date_list,
                    'depaturetime_list':depaturetime_list,'arrival_time_list':arrival_time_list,'class_list':class_list,
