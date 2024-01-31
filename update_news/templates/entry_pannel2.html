@@ -1,9 +1,30 @@
 {% block content %}
+
   <h2>Fill in the Form</h2>
+
+  <button><a href="{% url 'clear' %}">Clean Data</a></button>
 
   <form method="post" action="{% url 'generate_pdf' %}">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Generate PDF</button>
+    
+
+    <label for="depaturetime">Departure Time</label>
+    <input type="text" name="departuretime" id="departuretime">
+
+    <label for="arrivaltime">Arrival Time</label>
+    <input type="text" name="arrivaltime" id="arrivaltime">
+
+    <label for="flightname">Flight Name/number</label>
+    <input type="text" name="flightname" id="flightname">
+
+    <label for="class">Class</label>
+    <input type="text" name="class" id="class">
+
+    <label for="baggage_allowance">Baggage Allowance</label>
+    <input type="text" name="baggage_allowance" id="baggage_allowance">
+
+    <input type="submit" value="Add">
   </form>
+
+
 {% endblock %}

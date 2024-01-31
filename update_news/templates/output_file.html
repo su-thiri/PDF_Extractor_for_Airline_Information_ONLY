@@ -36,52 +36,30 @@
         <th>Destination</th>
         <th>Depature Time</th>
         <th>Arrival Time</th>
-        <th>Flight Name or Number</th>
+        <th>Flight Name?Number</th>
         <th>Class</th>
         <th>Baggage Allowance</th>
       </tr>
     </thead>
+
+<!-- ----------------------------------------------------------------------------------------------------------- -->
+    
     <tbody>
       <tr>
-        <td>{{ date }}</td>
-        <td>{{ destination }}</td>
-        <td>{{ depaturetime }}</td>
-        <td>{{ arrivaltime }}</td>
+
+        <td>{{ travel_date }}</td>
+        <td>{{ desination }}</td>
+        <td>{{ departure_time }}</td>
+        <td>{{ arrival_time }}</td>
         <td>{{ flight }}</td>
-        <td>{{ class }}</td>
+        <td>{{ ar_class }}</td>
         <td>{{ baggage_allowance }}</td>
+
       </tr>
     </tbody>
+
+      
   </table>
-  <!-- <table class="table table-bordered">
-    <tr>
-      <th>Date</th>
-      <th>Destination</th>
-      <th>Depature Time</th>
-      <th>Arrival Time</th>
-      <th>Flight Name</th>
-      <th>Flight Number</th>
-      <th>Class</th>
-      <th>Baggage Allowance</th>
-
-
-
-    </tr>
-
-      <tr>
-        <td>{{ date }}</td>
-        <td>{{ destination }}</td>
-        <td>{{ departuretime }}</td>
-        <td>{{ arrivaltime }}</td>
-        <td>{{ flightname }}</td>
-        <td>{{ flightnum }}</td>
-        <td>{{ class }}</td>
-        <td>{{ baggage_allowance }}</td>
-
-
-      </tr>
-
-  </table> -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

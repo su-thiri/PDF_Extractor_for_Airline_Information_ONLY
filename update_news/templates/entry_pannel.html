@@ -1,10 +1,11 @@
 {% block content %}
   <h2>Fill in the Form</h2>
     
-
+  <button><a href="{% url 'clear' %}">Clean Data</a></button>
   <form method="post" action="{% url 'generate_pdf' %}">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Generate PDF</button>
   </form>
+  <button><a href="{% url 'sec_gene' %}">add more</a></button>
 {% endblock %}

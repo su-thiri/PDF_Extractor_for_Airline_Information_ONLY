@@ -10,7 +10,6 @@ from .utils import generate_pdf,generate_agent
 from django.templatetags.static import static
 from xhtml2pdf import pisa
 
-
 def upload_image(request):
     if request.method == 'POST':
         form = UserImageForm(request.POST, request.FILES)
@@ -51,25 +50,69 @@ class GeneratePDF(View):
         form = UserDataForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('generate_pdf')  # This should match the name in your urls.py
+            return redirect('generate_pdf')
+         # This should match the name in your urls.py
         return render(request, 'entry_pannel.html', {'form': form})
+
+class Add_Data(View):
+
+    def get(self,request):
+        data = UserData.objects.raw("select * from update_news_userdata")
+        return render(request, 'entry_pannel2.html', {'data': data})
     
+    def post(self,request):
+        data = UserData.objects.all()
+        data.travel_date = request.POST.get("date")
+        data.desination = request.POST.get("destination")
+        data.departure_time = request.POST.get("departuretime")
+        data.arrival_time = request.POST.get("arrivaltime")
+        data.flight = request.POST.get("flightname")
+        data.ar_class = request.POST.get("class")
+        data.baggage_allowance = request.POST.get("baggage_allowance")
+
+        if data:
+            data.save()
+            return redirect('generate_pdf')
+        
+        return render(request, 'entry_pannel2.html', {'data': data})
+
+def clear(request):
+    UserData.objects.all().delete()
+    return redirect('generate_pdf')
+
 class PDFView(View):
     def get(self, request,pk):
         user_data = UserData.objects.get(id = pk)
         template_path = 'output_file.html'
-        date_list =user_data.travel_date.split(',')
-        depaturetime_list = user_data.departure_time.split(',')
-        arrival_time_list = user_data.arrival_time.split(',')
-        class_list = user_data.ar_class.split(',')
-        flight_list = user_data.flight.split(',')
-        destination_list = user_data.flight.split(',')
+        flight_data = UserData.objects.get_queryset()
+        count = 0
+        for i in flight_data:
+            count += 1
 
-        context = {'name':user_data.passenger_name,'pp_num':user_data.passport_num,'date': user_data.travel_date,'destination':user_data.desination,'depaturetime':user_data.departure_time,
-                   'arrivaltime':user_data.arrival_time,'flight':user_data.flight,
-                   'class':user_data.ar_class,'baggage_allowance':user_data.baggage_allowance,'date_list':date_list,
-                   'depaturetime_list':depaturetime_list,'arrival_time_list':arrival_time_list,'class_list':class_list,
-                   'flight_list':flight_list,'destination_list': destination_list
+        flight_data1 = []
+        flight_data2 = []
+        flight_data3 = []
+        flight_data4 = []
+
+        if count == 1:
+            flight_data = flight_data
+        elif count == 2:
+            flight_data1.append(flight_data[0])
+            flight_data2.append(flight_data[1])
+        elif count == 3:
+            flight_data1.append(flight_data[0])
+            flight_data2.append(flight_data[1])
+            flight_data3.append(flight_data[2])
+        elif count == 4:
+            flight_data1.append(flight_data[0])
+            flight_data2.append(flight_data[1])
+            flight_data3.append(flight_data[2])
+            flight_data4.append(flight_data[3])
+
+        context = {'name':user_data.passenger_name,'pp_num':user_data.passport_num,
+                   'flight_data':flight_data,'count':count,
+                   'flight_data1':flight_data1,'flight_data2':flight_data2,
+                   'flight_data3':flight_data3,'flight_data4':flight_data4
                    }
 
         # Render the HTML template to a string
@@ -86,42 +129,3 @@ class PDFView(View):
         if pisa_status.err:
             return HttpResponse('We had some errors <pre>' + html + '</pre>')
         return response
-    
-
-class PDFView2(View):
-    def get(self, request,pk):
-        user_data = UserData.objects.get(id = pk)
-        template_path = 'output_file2.html'  # Replace with the actual template path
-        date_list =user_data.travel_date.split(',')
-        depaturetime_list = user_data.departure_time.split(',')
-        arrival_time_list = user_data.arrival_time.split(',')
-        class_list = user_data.ar_class.split(',')
-        flight_list = user_data.flight.split(',')
-        destination_list = user_data.flight.split(',')
-
-        len_date = len(date_list)
-        len_departure = len(depaturetime_list)
-        len_arrival = len(arrival_time_list)
-        len_flight = len(flight_list)
-
-        context = {'date_list':date_list,
-                   'depaturetime_list':depaturetime_list,'arrival_time_list':arrival_time_list,'class_list':class_list,
-                   'flight_list':flight_list,'destination_list': destination_list, 'len_date':len_date,'len_dep':len_departure,
-                   'len_arrival':len_arrival,'len_flight':len_flight
-                   }
-
-        # Render the HTML template to a string
-        template = get_template(template_path)
-        html = template.render(context)
-
-        # Create a PDF file
-        response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment; filename="generated_file.pdf"'
-
-        # Generate PDF using xhtml2pdf
-        pisa_status = pisa.CreatePDF(html, dest=response)
-
-        if pisa_status.err:
-            return HttpResponse('We had some errors <pre>' + html + '</pre>')
-        return response
-
