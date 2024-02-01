@@ -7,7 +7,7 @@ urlpatterns = [
     path('upload_list/',upload_list,name="upload_list"),
     path('agent_generate/<int:pk>/',agent_generate,name="agent_generate"),
     path('generate-pdf/', GeneratePDF.as_view(), name='generate_pdf'),
-    path('pdf_view/<int:pk>',PDFView.as_view(),name='pdf_view'),
+    path('pdf_view/',PDFView.as_view(),name='pdf_view'),
     path('clean/',clear,name='clear'),
     path('sec_gene/',Add_Data.as_view(),name="sec_gene")
 ]

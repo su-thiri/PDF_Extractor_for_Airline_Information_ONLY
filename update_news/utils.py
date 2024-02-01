@@ -25,9 +25,6 @@ def generate_pdf(image_path,default_logo_url):
     default_logo_img2 = Image.open(BytesIO(default_logo_response2.content))
     default_logo_img3 = Image.open(BytesIO(default_logo_response3.content))
 
-
-
-
     default_logo_cropped = default_logo_img.crop((0,0,7500,780))
     default_logo_cropped2 = default_logo_img2.crop((0,2300,7500,3450))
     default_logo_cropped3 = default_logo_img3.crop((0,1500,7500,2200))

@@ -1,5 +1,3 @@
-# pdf_generator/views.py
-
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template.loader import get_template
@@ -57,63 +55,43 @@ class GeneratePDF(View):
 class Add_Data(View):
 
     def get(self,request):
-        data = UserData.objects.raw("select * from update_news_userdata")
+        data = UserData.objects.all()
         return render(request, 'entry_pannel2.html', {'data': data})
     
     def post(self,request):
-        data = UserData.objects.all()
-        data.travel_date = request.POST.get("date")
-        data.desination = request.POST.get("destination")
-        data.departure_time = request.POST.get("departuretime")
-        data.arrival_time = request.POST.get("arrivaltime")
-        data.flight = request.POST.get("flightname")
-        data.ar_class = request.POST.get("class")
-        data.baggage_allowance = request.POST.get("baggage_allowance")
+        form = UserData()
 
-        if data:
-            data.save()
-            return redirect('generate_pdf')
-        
-        return render(request, 'entry_pannel2.html', {'data': data})
+        form.departure_time = request.POST.get()
+        form.arrival_time = request.POST.get()
+        form.ar_class = request.POST.get()
+        form.flight = request.POST.get()
+        form.baggage_allowance = request.POST.get()
+        form.save()
+
+        return redirect('generate_pdf')
 
 def clear(request):
     UserData.objects.all().delete()
     return redirect('generate_pdf')
 
 class PDFView(View):
-    def get(self, request,pk):
-        user_data = UserData.objects.get(id = pk)
+    def get(self, request):
+        user_data = UserData.objects.all()
+        separate_data = UserData.objects.first()
         template_path = 'output_file.html'
-        flight_data = UserData.objects.get_queryset()
-        count = 0
-        for i in flight_data:
-            count += 1
+        name = separate_data.passenger_name
+        pass_num = separate_data.passport_number
+        booking_code = separate_data.booking_code
+        eticket = separate_data.eticket
 
-        flight_data1 = []
-        flight_data2 = []
-        flight_data3 = []
-        flight_data4 = []
+        context = {
 
-        if count == 1:
-            flight_data = flight_data
-        elif count == 2:
-            flight_data1.append(flight_data[0])
-            flight_data2.append(flight_data[1])
-        elif count == 3:
-            flight_data1.append(flight_data[0])
-            flight_data2.append(flight_data[1])
-            flight_data3.append(flight_data[2])
-        elif count == 4:
-            flight_data1.append(flight_data[0])
-            flight_data2.append(flight_data[1])
-            flight_data3.append(flight_data[2])
-            flight_data4.append(flight_data[3])
-
-        context = {'name':user_data.passenger_name,'pp_num':user_data.passport_num,
-                   'flight_data':flight_data,'count':count,
-                   'flight_data1':flight_data1,'flight_data2':flight_data2,
-                   'flight_data3':flight_data3,'flight_data4':flight_data4
-                   }
+            'flight_data_lists': user_data,
+            'name':name,
+            'pass_num':pass_num,
+            'booking_code':booking_code,
+            'eticket':eticket
+        }
 
         # Render the HTML template to a string
         template = get_template(template_path)

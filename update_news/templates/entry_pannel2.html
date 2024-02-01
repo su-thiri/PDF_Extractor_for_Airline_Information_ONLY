@@ -1,30 +1,40 @@
 {% block content %}
+    <h2>Fill in the Form</h2>
 
-  <h2>Fill in the Form</h2>
+    <button><a href="{% url 'clear' %}">Clean Data</a></button>
 
-  <button><a href="{% url 'clear' %}">Clean Data</a></button>
+    <form method="post" action="{% url 'generate_pdf' %}">
+        {% csrf_token %}
+            
+            
 
-  <form method="post" action="{% url 'generate_pdf' %}">
-    {% csrf_token %}
-    
+            <label for="travel_date">Travel Date</label>
+            <input type="text" name="travel_date" id="travel_date">
 
-    <label for="depaturetime">Departure Time</label>
-    <input type="text" name="departuretime" id="departuretime">
+            <label for="desination">Desination</label>
+            <input type="text" name="desination" id="desination">
+        
+        
+            <label for="departure_time">Departure Time</label>
+            <input type="text" name="departure_time" id="departure_time">
+        
+        
+            <label for="arrival_time">Arrival Time</label>
+            <input type="text" name="arrival_time" id="arrival_time">
+        
+        
+            <label for="ar_class">Class</label>
+            <input type="text" name="ar_class" id="ar_class" >
+        
+        
+            <label for="flight">Flight</label>
+            <input type="text" name="flight" id="flight">
+        
+        
+            <label for="baggage_allowance">Baggage Allowance</label>
+            <input type="baggage_allowance" name="baggage_allowance" id="baggage_allowance">
+        
 
-    <label for="arrivaltime">Arrival Time</label>
-    <input type="text" name="arrivaltime" id="arrivaltime">
-
-    <label for="flightname">Flight Name/number</label>
-    <input type="text" name="flightname" id="flightname">
-
-    <label for="class">Class</label>
-    <input type="text" name="class" id="class">
-
-    <label for="baggage_allowance">Baggage Allowance</label>
-    <input type="text" name="baggage_allowance" id="baggage_allowance">
-
-    <input type="submit" value="Add">
-  </form>
-
-
+            <input type="submit" value="Add">
+    </form>
 {% endblock %}

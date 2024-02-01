@@ -9,4 +9,4 @@ class UserImageForm(forms.ModelForm):
 class UserDataForm(forms.ModelForm):
     class Meta:
         model = UserData
-        fields = ['booking_code','passenger_name','travel_date','desination','departure_time','arrival_time','ar_class','baggage_allowance','flight','passport_num']
+        fields = ['booking_code','eticket','passenger_name','travel_date','desination','departure_time','arrival_time','ar_class','baggage_allowance','flight','passport_number']
