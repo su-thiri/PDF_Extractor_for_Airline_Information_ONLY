@@ -83,6 +83,7 @@ class PDFView(View):
         pass_num = separate_data.passport_number
         booking_code = separate_data.booking_code
         eticket = separate_data.eticket
+        price = separate_data.price
 
         context = {
 
@@ -90,7 +91,8 @@ class PDFView(View):
             'name':name,
             'pass_num':pass_num,
             'booking_code':booking_code,
-            'eticket':eticket
+            'eticket':eticket,
+            'price':price
         }
 
         # Render the HTML template to a string

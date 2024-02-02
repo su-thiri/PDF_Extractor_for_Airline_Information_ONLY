@@ -78,8 +78,7 @@
                 <div class="form-items">
                     <h3>IFC Data Entry</h3>
                     <p>Fill in the data.</p>
-                    <span style="color:#44b7f1">Remember ! After your added the data , clean your history !</span>
-                    
+                    <span style="color:#44b7f1">Remember ! After you added the data , clean your history !</span>
                     
                     <form class="requires-validation" novalidate method="post" action="{% url 'generate_pdf' %}">
                         {% csrf_token %}
@@ -92,8 +91,6 @@
                           <label for="{{ form.eticket.id_for_label }}">E Ticket Number</label>
                           {{ form.eticket }}
                         </div>
-
-                        
                         <div class="col-md-12">
                           <label for="{{ form.passenger_name.id_for_label }}">Passenger Name</label>
                           {{ form.passenger_name }}
@@ -130,13 +127,20 @@
                           <label for="{{ form.baggage_allowance.id_for_label }}">Baggage Allowance</label>
                           {{ form.baggage_allowance }}
                         </div>
+                        <div class="col-md-12">
+                          <label for="{{ form.price.id_for_label }}">Price</label>
+                          {{ form.price }}
+                        </div>
                         <div class="form-button mt-3">
                             <input id="submit" value="Save" type="submit" class="btn btn-primary">
                             
                         </div>
+                        
                     </form>
+                    <br>
                     <a href="{% url 'clear' %}"><button class="btn btn-primary">Clean Data</button></a>
-                            <a href="{% url 'sec_gene' %}"><button class="btn btn-primary">Add more</button></a>
+                    <a href="{% url 'sec_gene' %}"><button class="btn btn-primary">Add more</button></a>
+                    <a href="{% url 'pdf_view' %}"><button class="btn btn-primary">Download</button></a>
                 </div>
             </div>
             

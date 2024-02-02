@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,6 +9,7 @@
     <script src="https://kit.fontawesome.com/47a113df1f.js" crossorigin="anonymous"></script>
 </head>
 <style>
+
     .table, .th-head {
         border: 2px solid black;
         padding: 5px;
@@ -19,48 +21,73 @@
         font-size: 20px;
         font-weight: 900;
     }
+    
 </style>
 <body>
-
+    <div style="z-index: 999;">
+        <img src="../static/image/logo.png" alt="image desc"/>
+      </div>
 
 
   <section>
-    <h1><span>Booking Code :</span>{{  }}</h1>
+    <h1>Booking Code : {{ booking_code|default:" " }}</h1>
+    <h1>E Ticket No : {{ eticket|default:" " }}</h1>
+
   </section>
 
     <h2>Passenger Information</h2>
   
-    <h1>{{ name|default:" " }}</h1>
-    <h1>{{ pass_num|default:" " }}</h1>
+    <h1>Name : {{ name|default:" " }}</h1>
+    <h1>Passport : {{ pass_num|default:" " }}</h1>
 
     <h2>Flight Information</h2>
     <table class="table">
         <thead class="th-head">
             <tr>
-                <th>Date</th>
-                <th>Destination</th>
-                <th>Depature Time</th>
-                <th>Arrival Time</th>
-                <th>Flight Name/Number</th>
-                <th>Class</th>
-                <th>Baggage Allowance</th>
+                <th><h1>Date</h1></th>
+                <th><h1>Destination</h1></th>
+                <th><h1>Departure Time</h1></th>
+                <th><h1>Arrival Time</h1></th>
+                <th><h1>Flight Name/Number</h1></th>
+                <th><h1>Class</h1></th>
+                <th><h1>Baggage Allowance</h1></th>
             </tr>
         </thead>
 
         <tbody>
             {% for flight_data_entry in flight_data_lists %}
-                <tr>
-                    <td>{{ flight_data_entry.travel_date|default:" " }}</td>
-                    <td>{{ flight_data_entry.desination|default:" " }}</td>
-                    <td>{{ flight_data_entry.departure_time|default:" " }}</td>
-                    <td>{{ flight_data_entry.arrival_time|default:" " }}</td>
-                    <td>{{ flight_data_entry.flight|default:" " }}</td>
-                    <td>{{ flight_data_entry.ar_class|default:" " }}</td>
-                    <td>{{ flight_data_entry.baggage_allowance|default:" " }}</td>
+                <tr style="text-align: center; align-items: center;justify-content: center;">
+                    <td><h1>{{ flight_data_entry.travel_date|default:" " }}</h1></td>
+                    <td><h1>{{ flight_data_entry.desination|default:" " }}</h1></td>
+                    <td><h1>{{ flight_data_entry.departure_time|default:" " }}</h1></td>
+                    <td><h1>{{ flight_data_entry.arrival_time|default:" " }}</h1></td>
+                    <td><h1>{{ flight_data_entry.flight|default:" " }}</h1></td>
+                    <td><h1>{{ flight_data_entry.ar_class|default:" " }}</h1></td>
+                    <td><h1>{{ flight_data_entry.baggage_allowance|default:" " }}</h1></td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+
+    <br><br>
+
+    <h2>Price</h2>
+    <h1>Air Ticket Fees : {{ price|default:" " }}</h1>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <p>*Notice</p>
+    <ul>
+        <li>Passengers must have at least 6 months of valid passports if they want to go abroad.</li>
+        <li>Passengers must arrive 3 hours before the flight departure time.</li>
+    </ul>
+
+
+    <!-- <div style="background-color: rgba(255, 193, 21, 0.816);margin: 0;">
+        <div style="padding: 10px;margin: 0;">
+            Hotline : 454526870 <br>
+            Address : No.1601,Block 3, Golden City Condo, Yankin Township, Yangon
+        </div>
+        
+    </div> -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

@@ -17,5 +17,6 @@ class UserData(models.Model):
     baggage_allowance = models.CharField(max_length=255,blank = True)
     issue_fare = models.CharField(max_length=255,blank = True)
     issue_date = models.CharField(max_length=255,blank = True)
+    price = models.CharField(max_length=255,blank=True)
 
     
