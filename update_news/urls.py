@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import upload_image, generated,upload_list,agent_generate,GeneratePDF,PDFView,clear,Add_Data
+from .views import upload_image, generated,upload_list,agent_generate,GeneratePDF,PDFView,clear,Add_Data,PDFView2
 
 urlpatterns = [
     path('', upload_image, name='upload_image'),
@@ -9,5 +9,6 @@ urlpatterns = [
     path('generate-pdf/', GeneratePDF.as_view(), name='generate_pdf'),
     path('pdf_view/',PDFView.as_view(),name='pdf_view'),
     path('clean/',clear,name='clear'),
-    path('sec_gene/',Add_Data.as_view(),name="sec_gene")
+    path('sec_gene/',Add_Data.as_view(),name="sec_gene"),
+    path('pdf_view2/',PDFView2.as_view(),name="pdf_view2")
 ]

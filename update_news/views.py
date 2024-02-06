@@ -7,6 +7,8 @@ from .forms import UserImageForm,UserDataForm
 from .utils import generate_pdf,generate_agent
 from django.templatetags.static import static
 from xhtml2pdf import pisa
+from update_pdf import settings
+
 
 def upload_image(request):
     if request.method == 'POST':
@@ -84,6 +86,52 @@ class PDFView(View):
         booking_code = separate_data.booking_code
         eticket = separate_data.eticket
         price = separate_data.price
+        image_file = request.build_absolute_uri(static("images/banner1.png"))
+        image_file2 = request.build_absolute_uri(static("images/banner2.png"))
+
+
+        context = {
+
+            'flight_data_lists': user_data,
+            'name':name,
+            'pass_num':pass_num,
+            'booking_code':booking_code,
+            'eticket':eticket,
+            'price':price,
+            'image_file':image_file,
+            'image_file2':image_file2
+
+ 
+        }
+
+        # Render the HTML template to a string
+        template = get_template(template_path)
+        html = template.render(context)
+        
+
+
+        # Create a PDF file
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="generated_file.pdf"'
+
+        # Generate PDF using xhtml2pdf
+        pisa_status = pisa.CreatePDF(html, dest=response)
+
+        if pisa_status.err:
+            return HttpResponse('We had some errors <pre>' + html + '</pre>')
+        return response
+    
+class PDFView2(View):
+    def get(self, request):
+        user_data = UserData.objects.all()
+        separate_data = UserData.objects.first()
+        template_path = 'output_file2.html'
+        name = separate_data.passenger_name
+        pass_num = separate_data.passport_number
+        booking_code = separate_data.booking_code
+        eticket = separate_data.eticket
+        price = separate_data.price
+        
 
         context = {
 
@@ -93,11 +141,14 @@ class PDFView(View):
             'booking_code':booking_code,
             'eticket':eticket,
             'price':price
+ 
         }
 
         # Render the HTML template to a string
         template = get_template(template_path)
         html = template.render(context)
+        
+
 
         # Create a PDF file
         response = HttpResponse(content_type='application/pdf')

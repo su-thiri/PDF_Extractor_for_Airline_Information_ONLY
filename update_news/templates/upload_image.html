@@ -99,7 +99,7 @@
     <ul class="nav bg-warning">
         <li class="nav-item warning">
             <a href="{% url 'upload_image' %}" class="nav-link text-dark" style="padding: 20px; font-size: 20px;" staria-current="page"><i class="fa-solid fa-house"></i>Home</a>
-        </li>
+        </li>    
         <li class="nav-item warning">
             <a class="nav-link text-dark" href="{% url 'upload_list' %}" style="padding: 20px; font-size: 20px;" staria-current="page"><i class="fa-solid fa-spinner"></i>Upload Pannel</a>
         </li>
@@ -111,11 +111,11 @@
       <div style="position: absolute; left: 80%; top: -40px;z-index: 999;">
         <img src="{% static 'image/logo.png' %}" alt="image desc"/>
       </div>
-
+ 
       <video autoplay muted loop id="background-video">
         <source src="{% static 'video/travel.mp4' %}" type="video/mp4">
     </video>
-    
+
     <div class="limiter">
 		<div class="container-login100 " >
 			<div class="wrap-login100 p-t-10 p-b-100">
