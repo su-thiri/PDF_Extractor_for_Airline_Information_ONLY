@@ -86,7 +86,7 @@ class PDFView(View):
         booking_code = separate_data.booking_code
         eticket = separate_data.eticket
         price = separate_data.price
-        image_file = request.build_absolute_uri(static("images/banernew.png"))
+        image_file = request.build_absolute_uri(static("images/baner.png"))
         image_file2 = request.build_absolute_uri(static("images/banner2.png"))
 
 
